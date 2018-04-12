@@ -1,0 +1,11 @@
+setwd("C:/Users/HP/Desktop/thss")
+dataset = read.csv("sentiment.csv")
+library(caTools)
+set.seed(123)
+split = sample.split(dataset$price, SplitRatio = 2/3)
+training_set = subset(dataset , split == TRUE)
+test_set = subset(dataset , split ==FALSE)
+regressor = lm(formula = price ~ anger + anticipation + disgust + fear + joy + sadness + surprise + trust + negative + positive, 
+               data = training_set)
+summary(regressor)
+y_predMul = predict(regressor , newdata = test_set)
